@@ -4,7 +4,6 @@ import {
 	bodyToBodyInit,
 	getValueFromBody,
 	modifyBodyWithStringValue,
-	proxiedFetch,
 	removeFieldsFromBody,
 } from "../../utils/api-utils";
 import pickHeaders from "../../utils/pick-headers";
@@ -130,7 +129,7 @@ export const relayLLMRequest: RequestHandler = async (c) => {
 		console.log(modelUsageMetaData);
 
 		try {
-			const response = await proxiedFetch(url, {
+			const response = await fetch(url, {
 				headers,
 				method: c.req.method,
 				body: bodyToBodyInit(newBodyObject),

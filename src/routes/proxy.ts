@@ -1,6 +1,5 @@
 import type { Context } from "hono";
 import type { BlankEnv, BlankInput } from "hono/types";
-import { proxiedFetch } from "../utils/api-utils";
 
 export const proxyList = [
 	{
@@ -50,13 +49,11 @@ export const handleProxy = async (
 	headers.delete("cf-connecting-ip"); // Remove the Cloudflare connecting IP header
 	headers.delete("host"); // Remove the host header to avoid DNS resolution errors
 
-	const response = await proxiedFetch(url, {
+	return await fetch(url, {
 		headers,
 		method: c.req.method,
 		body: c.req.raw.body,
 		// @ts-expect-error
 		duplex: "half",
 	});
-
-	return response;
 };
