@@ -1,5 +1,5 @@
 import { confirm, input, select } from "@inquirer/prompts";
-import type { APIConfig } from "../schema";
+import type { APIConfig } from "../schema.ts";
 
 /**
  * Prompts user to select a provider from the available providers

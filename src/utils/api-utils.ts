@@ -43,3 +43,25 @@ export function bodyToBodyInit(body: BodyType): BodyInit {
 	if (body instanceof FormData) return body;
 	return JSON.stringify(body);
 }
+
+// Clean up headers before reaching to client (response)
+export function purgeHeaders(headers: Headers): Headers {
+	// Clone the headers
+	const clonedHeaders = new Headers(headers);
+
+	// Delete server header
+	clonedHeaders.delete("server");
+
+	// Clean up compression headers
+	clonedHeaders.delete("content-encoding");
+	clonedHeaders.delete("content-length");
+
+	// Clean up x-* headers
+	for (const key of clonedHeaders.keys()) {
+		if (key.startsWith("x-")) {
+			clonedHeaders.delete(key);
+		}
+	}
+
+	return clonedHeaders;
+}

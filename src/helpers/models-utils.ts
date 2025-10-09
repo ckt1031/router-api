@@ -1,5 +1,5 @@
-import apiConfig from "../../data/api.json";
-import type { APIConfig } from "../schema";
+import apiConfig from "../../data/api.json" with { type: "json" };
+import type { APIConfig } from "../schema.ts";
 
 interface Model {
 	id: string;

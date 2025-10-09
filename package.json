@@ -3,12 +3,13 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "wrangler dev",
 		"helper": "bun run scripts/helper.ts",
 		"lint": "tsc --noEmit && biome lint",
 		"lint:fix": "tsc --noEmit && biome check --write .",
 		"deploy": "wrangler deploy --latest --minify --upload-source-maps",
-		"postbuild": "bun run scripts/validate-config.ts",
+		"validate": "bun run scripts/validate-config.ts",
+		"clean-vercel": "bunx fix-esm-import-path .vercel/output",
+		"vercel-deploy": "vercel build --prod && bun run clean-vercel && vercel deploy --prebuilt --prod",
 		"postinstall": "bun run scripts/generate-schema.ts"
 	},
 	"devDependencies": {
@@ -17,7 +18,9 @@
 		"@types/cli-progress": "^3.11.6",
 		"@types/lodash": "^4.17.20",
 		"@types/node": "^24.6.2",
+		"@vercel/node": "^5.3.26",
 		"typescript": "^5.9.3",
+		"vercel": "^48.2.8",
 		"wrangler": "^4.42.0"
 	},
 	"dependencies": {

@@ -1,6 +1,6 @@
-import { sample, shuffle } from "lodash";
-import apiConfig from "../../data/api.json";
-import type { APIConfig } from "../schema";
+import _ from "lodash";
+import apiConfig from "../../data/api.json" with { type: "json" };
+import type { APIConfig } from "../schema.ts";
 
 type Provider = APIConfig["providers"][string];
 type UserKey = APIConfig["userKeys"][number];
@@ -105,7 +105,7 @@ function sortProvidersByPriority(providers: Provider[]): Provider[] {
 	for (const priority of sortedPriorities) {
 		const providersInGroup = priorityGroups[priority];
 		// Shuffle the providers in this priority group using Lodash shuffle
-		const shuffled = shuffle([...providersInGroup]);
+		const shuffled = _.shuffle([...providersInGroup]);
 		sortedProviders.push(...shuffled);
 	}
 
@@ -161,7 +161,7 @@ export function pickModelChannelWithFallback(
 	}
 
 	// Random pick a key from the available keys
-	const pickedKeyFromProvider = sample(availableKeys);
+	const pickedKeyFromProvider = _.sample(availableKeys);
 	if (!pickedKeyFromProvider) {
 		return null;
 	}

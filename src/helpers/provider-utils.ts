@@ -1,14 +1,14 @@
 import * as fs from "node:fs";
 import slugify from "slugify";
-import type { APIConfig } from "../schema";
-import { apiConfigPath } from "./api-config";
+import type { APIConfig } from "../schema.ts";
+import { apiConfigPath } from "./api-config.ts";
 import {
 	confirmAction,
 	promptCommaSeparated,
 	promptInput,
 	promptYesNo,
 	selectProvider,
-} from "./shared-utils";
+} from "./shared-utils.ts";
 
 // chooseProvider is now available from shared-utils as selectProvider
 

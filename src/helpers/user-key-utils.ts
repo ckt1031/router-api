@@ -1,10 +1,10 @@
-import type { APIConfig } from "../schema";
+import type { APIConfig } from "../schema.ts";
 import {
 	confirmAction,
 	promptCommaSeparated,
 	promptInput,
 	selectUserApiKey,
-} from "./shared-utils";
+} from "./shared-utils.ts";
 
 // Generate a random key with crypto.getRandomValues to ensure it's cryptographically secure
 function generateKey(length = 32): string {

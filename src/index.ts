@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
-import dashboardRouter from "./routes/dashboard";
-import { handleProxy, proxyList } from "./routes/proxy";
-import v1Router from "./routes/v1";
+import dashboardRouter from "./routes/dashboard/index.ts";
+import { handleProxy, proxyList } from "./routes/proxy.ts";
+import v1Router from "./routes/v1/index.ts";
 
 const app = new Hono();
 app.use(secureHeaders());
