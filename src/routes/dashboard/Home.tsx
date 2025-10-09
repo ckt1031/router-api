@@ -7,8 +7,6 @@ const app = new Hono<DashboardEnv>();
 
 const BigTitle: FC<{ auth: OidcAuth }> = ({ auth }) => {
     const email = auth.email!.toString();
-    const expiryDate = new Date(auth.rtkexp * 1000);
-    const expiryDateString = expiryDate.toLocaleString();
 
     return (
         <div style={{
@@ -23,9 +21,6 @@ const BigTitle: FC<{ auth: OidcAuth }> = ({ auth }) => {
             <h3>
                 Hello {email}!
             </h3>
-            <p>
-                Expiry: {expiryDateString}
-            </p>
             <a href="/dashboard/keys">User Keys</a>
             <a href="/dashboard/providers">Provider Keys</a>
 
