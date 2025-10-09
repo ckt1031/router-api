@@ -9,6 +9,10 @@ import {
 } from "../../utils/api-utils.ts";
 import pickHeaders from "../../utils/pick-headers.ts";
 import { pickModelChannelWithFallback } from "../../utils/pick-model.ts";
+import {
+	createStreamingTokenCounter,
+	logNonStreamingTokens,
+} from "../../utils/token-counter.ts";
 import type { V1Env } from "./types.ts";
 
 type RequestHandler = H<V1Env, "/v1/chat/completions", BlankInput, Response>;
@@ -137,11 +141,21 @@ export const relayLLMRequest: RequestHandler = async (c) => {
 			});
 
 			if (response.ok && response.status === 200) {
-				return new Response(response.body, {
-					status: response.status,
-					statusText: response.statusText,
-					headers: purgeHeaders(response.headers),
-				});
+				const isStream = response.headers
+					.get("content-type")
+					?.includes("text/event-stream");
+				const cleanHeaders = purgeHeaders(response.headers);
+
+				if (isStream) {
+					return createStreamingTokenCounter(response, cleanHeaders);
+				} else {
+					await logNonStreamingTokens(response);
+					return new Response(response.body, {
+						status: response.status,
+						statusText: response.statusText,
+						headers: cleanHeaders,
+					});
+				}
 			}
 
 			// If we get a 429 (rate limit) or 401/403 (auth error), mark this attempt as failed
