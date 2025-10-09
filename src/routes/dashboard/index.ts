@@ -10,6 +10,7 @@ import {
 import { Hono } from "hono";
 import apiConfig from "../../../data/api.json" with { type: "json" };
 import home from "./Home.tsx";
+import providerKeys from "./ProviderKeys.tsx";
 import userKeys from "./UserKeys.tsx";
 
 export type DashboardEnv = {
@@ -51,6 +52,7 @@ app.use(async (c, next) => {
 	}
 
 	c.set("auth", auth);
+	console.log(`Authenticated user: ${auth.email.toString()}`);
 
 	// Check if the email is allowed
 	if (
@@ -65,5 +67,6 @@ app.use(async (c, next) => {
 
 app.route("/", home);
 app.route("/keys", userKeys);
+app.route("/providers", providerKeys);
 
 export default app;

@@ -25,6 +25,7 @@ app.use(async (c, next) => {
 	if (!keyData) return c.json({ error: "Invalid key" }, 401);
 
 	c.set("userKey", keyData);
+	console.log(`API key: ${keyData.name}`);
 
 	await next();
 });
