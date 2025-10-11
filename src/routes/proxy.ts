@@ -58,9 +58,6 @@ export const handleProxy = async (
 		`https://${proxyHost}`,
 	);
 
-	// Print the path requested
-	console.log(`Path: ${proxyPath}`);
-
 	const headers = new Headers(c.req.header());
 	headers.delete("cf-connecting-ip"); // Remove the Cloudflare connecting IP header
 	headers.delete("host"); // Remove the host header to avoid DNS resolution errors
