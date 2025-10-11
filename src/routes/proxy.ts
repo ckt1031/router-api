@@ -31,6 +31,18 @@ export const proxyList = [
 		path: "/proxy/openrouter",
 		host: "openrouter.ai/api",
 	},
+	{
+		path: "/proxy/cerebras",
+		host: "api.cerebras.ai",
+	},
+	{
+		path: "/proxy/together",
+		host: "api.together.xyz",
+	},
+	{
+		path: "/proxy/x",
+		host: "api.x.ai",
+	},
 ];
 
 export const handleProxy = async (
