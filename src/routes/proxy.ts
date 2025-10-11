@@ -29,7 +29,7 @@ export const proxyList = [
 	},
 	{
 		path: "/proxy/openrouter",
-		host: "openrouter.ai",
+		host: "openrouter.ai/api",
 	},
 ];
 
@@ -45,6 +45,9 @@ export const handleProxy = async (
 		`${originalServerOrigin}${proxyPath}`,
 		`https://${proxyHost}`,
 	);
+
+	// Print the path requested
+	console.log(`Path: ${proxyPath}`);
 
 	const headers = new Headers(c.req.header());
 	headers.delete("cf-connecting-ip"); // Remove the Cloudflare connecting IP header
