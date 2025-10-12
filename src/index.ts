@@ -1,15 +1,15 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
-import dashboardRouter from "./routes/dashboard/index.ts";
+import dashboard from "./routes/dashboard/index.ts";
 import { handleProxy, proxyList } from "./routes/proxy.ts";
-import v1Router from "./routes/v1/index.ts";
+import v1 from "./routes/v1/index.ts";
 
 const app = new Hono();
 app.use(secureHeaders());
 
 app.get("/health", (c) => c.text("OK"));
-app.route("/dashboard", dashboardRouter);
+app.route("/dashboard", dashboard);
 
 // CORS for rest of routes
 app.use(cors());
@@ -21,6 +21,6 @@ for (const proxy of proxyList) {
 	});
 }
 
-app.route("/v1", v1Router);
+app.route("/v1", v1);
 
 export default app;

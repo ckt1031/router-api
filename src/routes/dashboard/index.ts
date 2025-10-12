@@ -35,6 +35,10 @@ const OIDC_CONFIG: Partial<OidcAuthEnv> = {
 app.use(initOidcAuthMiddleware(OIDC_CONFIG));
 
 app.get("/logout", async (c) => {
+	if (!c.get("auth")) {
+		return c.redirect("/dashboard");
+	}
+
 	await revokeSession(c);
 	return c.text("You have been successfully logged out!");
 });
