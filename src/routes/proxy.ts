@@ -70,34 +70,6 @@ export const handleProxy = async (
 		duplex: "half",
 	});
 
-	// Check if response is JSON or SSE
-	const contentType = response.headers.get("content-type");
-
-	// Type-safe check
-	if (!contentType) {
-		return c.json(
-			{
-				error: "Bad Request",
-				message: "Response must have a content type",
-				fullPath: url,
-			},
-			400,
-		);
-	}
-
-	const allowedContentTypes = ["application/json", "text/event-stream"];
-	// We don't allow other content types
-	if (!allowedContentTypes.includes(contentType)) {
-		return c.json(
-			{
-				error: "Bad Request",
-				message: "Invalid response from API provider",
-				fullPath: url,
-			},
-			400,
-		);
-	}
-
 	return new Response(response.body, {
 		status: response.status,
 		statusText: response.statusText,
