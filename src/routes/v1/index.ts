@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { etag } from "hono/etag";
 import { timeout } from "hono/timeout";
-import apiConfig from "../../../data/api.json" with { type: "json" };
-import { relayLLMRequest } from "./completions.ts";
-import { handleModelListRequest } from "./models.ts";
-import type { V1Env } from "./types.ts";
+import apiConfig from "../../../data/api.json";
+import { relayLLMRequest } from "./completions";
+import { handleModelListRequest } from "./models";
+import type { V1Env } from "./types";
 
 const app = new Hono<V1Env>();
 

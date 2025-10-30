@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { FC } from "hono/jsx";
-import apiConfig from "../../../data/api.json" with { type: "json" };
+import apiConfig from "../../../data/api.json";
 
 const app = new Hono();
 

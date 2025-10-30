@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import type { APIConfig } from "../schema.ts";
+import type { APIConfig } from "../schema";
 
 export const apiConfigPath = "./data/api.json";
 

@@ -1,8 +1,8 @@
 import { confirm, select } from "@inquirer/prompts";
 import cliProgress from "cli-progress";
 import Table from "cli-table3";
-import * as apiConfig from "../../data/api.json" with { type: "json" };
-import type { APIConfig } from "../schema.ts";
+import * as apiConfig from "../../data/api.json";
+import type { APIConfig } from "../schema";
 
 type Provider = APIConfig["providers"][string];
 

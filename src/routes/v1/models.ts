@@ -1,6 +1,6 @@
 import type { BlankInput, H } from "hono/types";
-import { listAllModels } from "../../helpers/models-utils.ts";
-import type { V1Env } from "./types.ts";
+import { listAllModels } from "../../helpers/models-utils";
+import type { V1Env } from "./types";
 
 type RequestHandler = H<V1Env, "/v1/models", BlankInput, Response>;
 

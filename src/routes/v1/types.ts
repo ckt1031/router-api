@@ -1,4 +1,4 @@
-import type { APIConfig } from "../../schema.ts";
+import type { APIConfig } from "../../schema";
 
 export type V1Env = {
 	Variables: {

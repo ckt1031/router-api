@@ -6,14 +6,14 @@ import {
 	modifyBodyWithStringValue,
 	purgeHeaders,
 	removeFieldsFromBody,
-} from "../../utils/api-utils.ts";
-import pickHeaders from "../../utils/pick-headers.ts";
-import { pickModelChannelWithFallback } from "../../utils/pick-model.ts";
+} from "../../utils/api-utils";
+import pickHeaders from "../../utils/pick-headers";
+import { pickModelChannelWithFallback } from "../../utils/pick-model";
 import {
 	createStreamingTokenCounter,
 	logNonStreamingTokens,
-} from "../../utils/token-counter.ts";
-import type { V1Env } from "./types.ts";
+} from "../../utils/token-counter";
+import type { V1Env } from "./types";
 
 type RequestHandler = H<V1Env, "/v1/chat/completions", BlankInput, Response>;
 

@@ -18,9 +18,7 @@
 		"rules": {
 			"recommended": true,
 			"correctness": {
-				"noUnusedImports": "error",
-				"useImportExtensions": "error",
-				"useJsonImportAttributes": "error"
+				"noUnusedImports": "error"
 			}
 		}
 	},

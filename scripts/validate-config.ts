@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 import { apiConfigSchema } from "../src/schema";
-import apiConfig from "../data/api.json" with { type: "json" };
+import apiConfig from "../data/api.json";
 import type { APIConfig } from "../src/schema";
 
 /**

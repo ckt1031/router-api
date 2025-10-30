@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import type { BlankEnv, BlankInput } from "hono/types";
-import { purgeHeaders } from "../utils/api-utils.ts";
+import { purgeHeaders } from "../utils/api-utils";
 
 export const proxyList = [
 	{

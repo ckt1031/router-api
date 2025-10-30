@@ -8,10 +8,10 @@ import {
 	revokeSession,
 } from "@hono/oidc-auth";
 import { Hono } from "hono";
-import apiConfig from "../../../data/api.json" with { type: "json" };
-import home from "./Home.tsx";
-import providerKeys from "./ProviderKeys.tsx";
-import userKeys from "./UserKeys.tsx";
+import apiConfig from "../../../data/api.json";
+import home from "./Home";
+import providerKeys from "./ProviderKeys";
+import userKeys from "./UserKeys";
 
 export type DashboardEnv = {
 	Variables: {

@@ -1,6 +1,6 @@
 import _ from "lodash";
-import apiConfig from "../../data/api.json" with { type: "json" };
-import type { APIConfig } from "../schema.ts";
+import apiConfig from "../../data/api.json";
+import type { APIConfig } from "../schema";
 
 type Provider = APIConfig["providers"][string];
 type UserKey = APIConfig["userKeys"][number];

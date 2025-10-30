@@ -1,8 +1,8 @@
 import { select } from "@inquirer/prompts";
-import { type APIConfig, apiConfigSchema } from "../schema.ts";
-import testAPI from "../tasks/test-api.ts";
-import { saveApiConfig } from "./api-config.ts";
-import { listAllModels } from "./models-utils.ts";
+import { type APIConfig, apiConfigSchema } from "../schema";
+import testAPI from "../tasks/test-api";
+import { saveApiConfig } from "./api-config";
+import { listAllModels } from "./models-utils";
 import {
 	addKeyToExistingProvider,
 	addModelToExistingProvider,
@@ -12,14 +12,14 @@ import {
 	removeModelFromExistingProvider,
 	removeProvider,
 	validateApiConfig,
-} from "./provider-utils.ts";
+} from "./provider-utils";
 
 import {
 	addUserApiKey,
 	removeUserApiKey,
 	rotateUserApiKey,
 	viewUserApiKey,
-} from "./user-key-utils.ts";
+} from "./user-key-utils";
 
 export async function displayMenu(config: APIConfig): Promise<void> {
 	const actionChoices = [
