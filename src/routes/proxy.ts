@@ -29,7 +29,7 @@ export const proxyList = [
 	},
 	{
 		path: "/proxy/openrouter",
-		host: "openrouter.ai/api",
+		host: "openrouter.ai",
 	},
 	{
 		path: "/proxy/cerebras",
