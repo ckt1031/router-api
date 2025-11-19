@@ -24,8 +24,18 @@ const Layout: FC<{ children: any }> = ({ children }) => {
                     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
                     crossorigin="anonymous" 
                 />
+                <script dangerouslySetInnerHTML={{ __html: `
+                    (function() {
+                        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+                        const updateTheme = (e) => {
+                            document.documentElement.setAttribute('data-bs-theme', e.matches ? 'dark' : 'light');
+                        };
+                        updateTheme(darkMode);
+                        darkMode.addEventListener('change', updateTheme);
+                    })();
+                ` }} />
             </head>
-            <body class="bg-light">
+            <body class="bg-body-tertiary">
                 {children}
                 <script 
                     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
@@ -53,7 +63,7 @@ const UserKeysList: FC<{ userKeys: UserKey[] }> = ({ userKeys }) => {
                                 <h5 class="mb-3">{userKey.name}</h5>
                                 
                                 <div class="mb-3">
-                                    <small class="text-muted d-block mb-1"><strong>API Key:</strong></small>
+                                    <small class="text-body-secondary d-block mb-1"><strong>API Key:</strong></small>
                                     <code class="small text-break">{userKey.key}</code>
                                 </div>
                                 
@@ -61,7 +71,7 @@ const UserKeysList: FC<{ userKeys: UserKey[] }> = ({ userKeys }) => {
                                     <div>
                                         {userKey.allowedProviders && (
                                             <div class="mb-2">
-                                                <small class="text-muted d-block mb-1"><strong>Allowed Providers:</strong></small>
+                                                <small class="text-body-secondary d-block mb-1"><strong>Allowed Providers:</strong></small>
                                                 <div class="d-flex flex-wrap gap-1">
                                                     {userKey.allowedProviders.map((provider, idx) => (
                                                         <span key={idx} class="badge bg-success">{provider}</span>
@@ -71,7 +81,7 @@ const UserKeysList: FC<{ userKeys: UserKey[] }> = ({ userKeys }) => {
                                         )}
                                         {userKey.allowedModels && (
                                             <div>
-                                                <small class="text-muted d-block mb-1"><strong>Allowed Models:</strong></small>
+                                                <small class="text-body-secondary d-block mb-1"><strong>Allowed Models:</strong></small>
                                                 <div class="d-flex flex-wrap gap-1">
                                                     {userKey.allowedModels.map((model, idx) => (
                                                         <span key={idx} class="badge bg-info text-dark">{model}</span>

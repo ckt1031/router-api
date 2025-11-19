@@ -18,8 +18,18 @@ const Layout: FC<{ children: any }> = ({ children }) => {
                     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
                     crossorigin="anonymous" 
                 />
+                <script dangerouslySetInnerHTML={{ __html: `
+                    (function() {
+                        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+                        const updateTheme = (e) => {
+                            document.documentElement.setAttribute('data-bs-theme', e.matches ? 'dark' : 'light');
+                        };
+                        updateTheme(darkMode);
+                        darkMode.addEventListener('change', updateTheme);
+                    })();
+                ` }} />
             </head>
-            <body class="bg-light">
+            <body class="bg-body-tertiary">
                 {children}
                 <script 
                     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
