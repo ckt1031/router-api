@@ -11,84 +11,82 @@ interface UserKey {
     allowedModels?: string[];
 }
 
+const Layout: FC<{ children: any }> = ({ children }) => {
+    return (
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>User Keys - Dashboard</title>
+                <link 
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+                    rel="stylesheet" 
+                    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+                    crossorigin="anonymous" 
+                />
+            </head>
+            <body class="bg-light">
+                {children}
+                <script 
+                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+                    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+                    crossorigin="anonymous"
+                ></script>
+            </body>
+        </html>
+    );
+};
+
 const UserKeysList: FC<{ userKeys: UserKey[] }> = ({ userKeys }) => {
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                maxWidth: "800px",
-                margin: "0 auto",
-                padding: "20px",
-                fontFamily: "sans-serif",
-            }}
-        >
-            <h2>User Keys</h2>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "15px",
-                }}
-            >
-                {userKeys.map((userKey, index) => (
-                    <div key={index}>
-                        <h3
-                            style={{
-                                margin: "0 0 8px 0",
-                                fontSize: "16px",
-                                fontWeight: "600",
-                            }}
-                        >
-                            {userKey.name}
-                        </h3>
-                        <div style={{ flex: 1 }}>
-                            <div
-                                style={{
-                                    fontFamily: "monospace",
-                                    fontSize: "12px",
-                                    color: "#666",
-                                    backgroundColor: "#fff",
-                                    padding: "8px",
-                                    borderRadius: "4px",
-                                    border: "1px solid #ddd",
-                                    wordBreak: "break-all",
-                                    lineHeight: "1.4",
-                                }}
-                            >
-                                {userKey.key}
-                            </div>
-                            {(userKey.allowedProviders || userKey.allowedModels) && (
-                                <div
-                                    style={{
-                                        marginTop: "8px",
-                                        fontSize: "12px",
-                                        color: "#888",
-                                    }}
-                                >
-                                    {userKey.allowedProviders && (
-                                        <div>
-                                            <strong>Allowed Providers:</strong>{" "}
-                                            {userKey.allowedProviders.join(", ")}
-                                        </div>
-                                    )}
-                                    {userKey.allowedModels && (
-                                        <div>
-                                            <strong>Allowed Models:</strong>{" "}
-                                            {userKey.allowedModels.join(", ")}
-                                        </div>
-                                    )}
+        <Layout>
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>User Keys</h2>
+                    <a href="/dashboard" class="btn btn-sm btn-outline-primary">Back</a>
+                </div>
+                
+                <div class="d-flex flex-column gap-3">
+                    {userKeys.map((userKey, index) => (
+                        <div key={index} class="card">
+                            <div class="card-body">
+                                <h5 class="mb-3">{userKey.name}</h5>
+                                
+                                <div class="mb-3">
+                                    <small class="text-muted d-block mb-1"><strong>API Key:</strong></small>
+                                    <code class="small text-break">{userKey.key}</code>
                                 </div>
-                            )}
+                                
+                                {(userKey.allowedProviders || userKey.allowedModels) && (
+                                    <div>
+                                        {userKey.allowedProviders && (
+                                            <div class="mb-2">
+                                                <small class="text-muted d-block mb-1"><strong>Allowed Providers:</strong></small>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    {userKey.allowedProviders.map((provider, idx) => (
+                                                        <span key={idx} class="badge bg-success">{provider}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {userKey.allowedModels && (
+                                            <div>
+                                                <small class="text-muted d-block mb-1"><strong>Allowed Models:</strong></small>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    {userKey.allowedModels.map((model, idx) => (
+                                                        <span key={idx} class="badge bg-info text-dark">{model}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-            <div style={{ marginTop: "20px" }}>
-                <a href="/dashboard">Back to Dashboard</a>
-            </div>
-        </div>
+        </Layout>
     );
 };
 

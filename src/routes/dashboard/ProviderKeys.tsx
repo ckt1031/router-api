@@ -13,183 +13,119 @@ interface Provider {
     models?: (string | { request: string; destination: string })[];
 }
 
+const Layout: FC<{ children: any }> = ({ children }) => {
+    return (
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Provider Keys - Dashboard</title>
+                <link 
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+                    rel="stylesheet" 
+                    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+                    crossorigin="anonymous" 
+                />
+            </head>
+            <body class="bg-light">
+                {children}
+                <script 
+                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+                    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+                    crossorigin="anonymous"
+                ></script>
+            </body>
+        </html>
+    );
+};
+
 const ProviderKeysList: FC<{ providers: Record<string, Provider> }> = ({ providers }) => {
     const providerEntries = Object.entries(providers);
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                maxWidth: "800px",
-                margin: "0 auto",
-                padding: "20px",
-                fontFamily: "sans-serif",
-            }}
-        >
-            <h2>Provider Keys</h2>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                }}
-            >
-                {providerEntries.map(([providerId, provider]) => (
-                    <div
-                        key={providerId}
-                        style={{
-                            border: "1px solid #ddd",
-                            borderRadius: "8px",
-                            padding: "15px",
-                            opacity: provider.enabled === false ? 0.5 : 1,
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                marginBottom: "10px",
-                            }}
-                        >
-                            <h3
-                                style={{
-                                    margin: "0",
-                                    fontSize: "18px",
-                                    fontWeight: "600",
-                                }}
-                            >
-                                {provider.name}
-                            </h3>
-                            <span
-                                style={{
-                                    fontSize: "12px",
-                                    color: "#666",
-                                    fontFamily: "monospace",
-                                }}
-                            >
-                                ({providerId})
-                            </span>
-                            {provider.enabled === false && (
-                                <span
-                                    style={{
-                                        fontSize: "11px",
-                                        color: "#999",
-                                        padding: "2px 6px",
-                                        border: "1px solid #ccc",
-                                        borderRadius: "3px",
-                                    }}
-                                >
-                                    disabled
-                                </span>
-                            )}
-                            {provider.priority && (
-                                <span
-                                    style={{
-                                        fontSize: "11px",
-                                        color: "#0066cc",
-                                        padding: "2px 6px",
-                                        border: "1px solid #0066cc",
-                                        borderRadius: "3px",
-                                    }}
-                                >
-                                    priority: {provider.priority}
-                                </span>
-                            )}
-                        </div>
-                        <div
-                            style={{
-                                fontSize: "12px",
-                                color: "#666",
-                                marginBottom: "10px",
-                            }}
-                        >
-                            <strong>Base URL:</strong> <code>{provider.baseURL}</code>
-                        </div>
-                        <div
-                            style={{
-                                fontSize: "12px",
-                                color: "#666",
-                                marginBottom: "10px",
-                            }}
-                        >
-                            <strong>Keys:</strong> {provider.keys.length}
-                        </div>
-                        {provider.models && provider.models.length > 0 && (
-                            <div
-                                style={{
-                                    fontSize: "12px",
-                                    color: "#666",
-                                    marginBottom: "10px",
-                                }}
-                            >
-                                <strong>Models:</strong>
-                                <div
-                                    style={{
-                                        marginTop: "6px",
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: "6px",
-                                    }}
-                                >
-                                    {provider.models.map((model, index) => {
-                                        const isSimple = typeof model === "string";
-                                        const modelText = isSimple ? model : `${model.request} → ${model.destination}`;
-                                        return (
-                                            <span
-                                                key={index}
-                                                style={{
-                                                    fontFamily: "monospace",
-                                                    fontSize: "11px",
-                                                    color: isSimple ? "#444" : "#5c3d00",
-                                                    backgroundColor: isSimple ? "#e8f4ff" : "#fff3cd",
-                                                    padding: "4px 8px",
-                                                    borderRadius: "4px",
-                                                    border: isSimple ? "1px solid #b3d9ff" : "1px solid #ffc107",
-                                                }}
+        <Layout>
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Provider Keys</h2>
+                    <a href="/dashboard" class="btn btn-sm btn-outline-primary">Back</a>
+                </div>
+                
+                <div class="d-flex flex-column gap-3">
+                    {providerEntries.map(([providerId, provider]) => (
+                        <div key={providerId} class={`card ${provider.enabled === false ? 'opacity-50' : ''}`}>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                                    <h5 class="mb-0">{provider.name}</h5>
+                                    <span class="badge bg-secondary">{providerId}</span>
+                                    {provider.enabled === false && (
+                                        <span class="badge bg-warning text-dark">Disabled</span>
+                                    )}
+                                    {provider.priority && (
+                                        <span class="badge bg-info">Priority: {provider.priority}</span>
+                                    )}
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <small class="text-muted"><strong>Base URL:</strong></small>
+                                    <div><code class="text-break">{provider.baseURL}</code></div>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <small class="text-muted"><strong>Keys:</strong> {provider.keys.length}</small>
+                                </div>
+                                
+                                {provider.models && provider.models.length > 0 && (
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-1"><strong>Models:</strong></small>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            {provider.models.map((model, index) => {
+                                                const isSimple = typeof model === "string";
+                                                const modelText = isSimple ? model : `${model.request} → ${model.destination}`;
+                                                return (
+                                                    <span key={index} class={`badge ${isSimple ? 'bg-primary' : 'bg-warning text-dark'}`}>
+                                                        {modelText}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                                
+                                <div class="accordion" id={`accordion-${providerId}`}>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button 
+                                                class="accordion-button collapsed" 
+                                                type="button" 
+                                                data-bs-toggle="collapse" 
+                                                data-bs-target={`#collapse-${providerId}`}
+                                                aria-expanded="false"
+                                                aria-controls={`collapse-${providerId}`}
                                             >
-                                                {modelText}
-                                            </span>
-                                        );
-                                    })}
+                                                View API Keys ({provider.keys.length})
+                                            </button>
+                                        </h2>
+                                        <div 
+                                            id={`collapse-${providerId}`} 
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent={`#accordion-${providerId}`}
+                                        >
+                                            <div class="accordion-body">
+                                                <div class="d-flex flex-column gap-2">
+                                                    {provider.keys.map((key, index) => (
+                                                        <code key={index} class="small text-break">{key}</code>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        )}
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "8px",
-                            }}
-                        >
-                            {provider.keys.map((key, index) => (
-                                <div
-                                    key={index}
-                                    style={{
-                                        fontFamily: "monospace",
-                                        fontSize: "11px",
-                                        color: "#666",
-                                        backgroundColor: provider.enabled === false ? "#e8e8e8" : "#f9f9f9",
-                                        padding: "8px",
-                                        borderRadius: "4px",
-                                        border: "1px solid #ddd",
-                                        wordBreak: "break-all",
-                                        lineHeight: "1.4",
-                                    }}
-                                >
-                                    {key}
-                                </div>
-                            ))}
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-            <div style={{ marginTop: "20px" }}>
-                <a href="/dashboard">Back to Dashboard</a>
-            </div>
-        </div>
+        </Layout>
     );
 };
 
